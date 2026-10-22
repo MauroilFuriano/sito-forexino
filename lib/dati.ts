@@ -36,9 +36,15 @@ export type Fotografia = {
   saltati: Saltato[];
 };
 
+// Vercel antepone al nome il prefisso scelto all'installazione (es. kv_KV_REST_API_URL): si cerca per suffisso
+function variabile(suffisso: string): string | undefined {
+  const nome = Object.keys(process.env).find((k) => k.toUpperCase().endsWith(suffisso) && !k.toUpperCase().includes("READ_ONLY"));
+  return nome ? process.env[nome] : undefined;
+}
+
 export function redis(): Redis | null {
-  const url = process.env.KV_REST_API_URL ?? process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN;
+  const url = variabile("REST_API_URL") ?? process.env.UPSTASH_REDIS_REST_URL;
+  const token = variabile("REST_API_TOKEN") ?? process.env.UPSTASH_REDIS_REST_TOKEN;
   return url && token ? new Redis({ url, token }) : null;
 }
 
