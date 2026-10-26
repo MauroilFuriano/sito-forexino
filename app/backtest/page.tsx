@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Curva from "@/components/Curva";
 import { leggiFotografia } from "@/lib/dati";
 import { classeSegno, erre, pct } from "@/lib/formato";
-import { BACKTEST, REGOLE } from "@/lib/strategia";
+import { BACKTEST, REGOLE, nomeSimbolo } from "@/lib/strategia";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Backtest vs realtà" };
@@ -15,12 +15,12 @@ export default async function Backtest() {
   const saltati = f?.saltati ?? [];
 
   const perRegola = REGOLE.map((r) => {
-    const fatti = trade.filter((t) => t.regola === r.nome);
+    const fatti = trade.filter((t) => t.regola === r.nome && nomeSimbolo(t.simbolo) === r.simbolo);
     const erri = fatti.map((t) => t.r).filter((x): x is number => x != null);
     return {
       ...r,
       eseguiti: fatti.length,
-      saltati: saltati.filter((s) => s.regola === r.nome).length,
+      saltati: saltati.filter((s) => s.regola === r.nome && nomeSimbolo(s.simbolo) === r.simbolo).length,
       rMedio: media(erri),
       rTotale: erri.length ? erri.reduce((a, b) => a + b, 0) : null,
     };
@@ -86,7 +86,7 @@ export default async function Backtest() {
             </thead>
             <tbody>
               {perRegola.map((r) => (
-                <tr key={r.nome}>
+                <tr key={`${r.simbolo}-${r.nome}`}>
                   <td>
                     <span style={{ fontWeight: 600 }}>{r.simbolo}</span> <span className="label">{r.descrizione}</span>
                   </td>

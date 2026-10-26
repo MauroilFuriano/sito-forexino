@@ -17,8 +17,7 @@ export default function Strategia() {
         <section className="card grow2" style={{ gap: 14 }}>
           <h2>In breve</h2>
           <p style={{ margin: 0 }}>
-            Sei regole intraday a orario fisso: due sull&apos;oro e quattro sulle valute. Ogni sei mesi le regole si
-            scelgono di nuovo con i soli dati passati (selezione walk-forward), senza ritocchi a mano.
+            Nove regole intraday a orario fisso: due sull&apos;oro e una per ognuna delle 7 valute più scambiate (EURUSD, USDJPY, GBPUSD, AUDUSD, USDCAD, USDCHF, NZDUSD). Ogni sei mesi le regole si scelgono di nuovo con i soli dati passati: per l&apos;oro sugli ultimi 3 anni, per le valute su tutta la storia, senza escludere nessuna coppia.
           </p>
           <p style={{ margin: 0 }}>
             Un trade parte solo se la regola dà il segnale e passa i filtri: tendenza degli ultimi 100 giorni e costo
@@ -26,7 +25,7 @@ export default function Strategia() {
           </p>
           <p style={{ margin: 0 }}>
             <strong>Uscite.</strong> Oro: metà posizione a +1R, metà a +2R, e dopo il primo target lo stop va a
-            pareggio. Valute: target a +2R. In ogni caso, all&apos;orario di uscita la posizione si chiude. Stop e target
+            pareggio. Valute: nessun target, escono allo stop o all&apos;orario della regola. In ogni caso, all&apos;orario di uscita la posizione si chiude. Stop e target
             stanno sul server del broker: proteggono anche se il PC si spegne.
           </p>
           <p style={{ margin: 0 }}>
@@ -60,7 +59,7 @@ export default function Strategia() {
             </thead>
             <tbody>
               {REGOLE.map((r) => (
-                <tr key={r.nome}>
+                <tr key={`${r.simbolo}-${r.nome}`}>
                   <td style={{ fontWeight: 600 }}>{r.simbolo}</td>
                   <td>{r.descrizione}</td>
                   <td className="num">{r.entra}</td>

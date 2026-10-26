@@ -86,7 +86,7 @@ export default async function Pannello() {
         <div className="card grow2" style={{ gap: 6 }}>
           <h2>Orari degli ingressi · ora italiana</h2>
           {[...REGOLE].sort((a, b) => a.entra.localeCompare(b.entra)).map((r) => (
-            <div className="rule" key={r.nome}>
+            <div className="rule" key={`${r.simbolo}-${r.nome}`}>
               <span className="t">{r.entra}</span>
               <span className="s">{r.simbolo}</span>
               <span className="label">

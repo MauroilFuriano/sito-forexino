@@ -9,8 +9,8 @@ const sans = Inter_Tight({ subsets: ["latin"], variable: "--font-sans" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: { default: "Bot Forex v10", template: "%s · Bot Forex v10" },
-  description: "Il bot di trading forex v10 dal vivo su conto demo: operazioni, backtest, strategia, diario e notizie.",
+  title: { default: "Bot Forex v15", template: "%s · Bot Forex v15" },
+  description: "Il bot di trading forex v15 dal vivo su conto demo: operazioni, backtest, strategia, diario e notizie.",
 };
 
 // Applica il tema salvato prima del primo disegno, cosi' la pagina non lampeggia
@@ -27,7 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="wrap">
             <Link href="/" className="brand">
               <span className="logo">FX</span>
-              <span className="brand-name">Bot Forex v10</span>
+              <span className="brand-name">Bot Forex v15</span>
               <span className="chip">DEMO</span>
             </Link>
             <div className="right">
